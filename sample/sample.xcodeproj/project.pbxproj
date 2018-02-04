@@ -16,6 +16,7 @@
 		C9E488F62026A37A0065BE14 /* sampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E488F52026A37A0065BE14 /* sampleTests.swift */; };
 		C9E489012026A37A0065BE14 /* sampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E489002026A37A0065BE14 /* sampleUITests.swift */; };
 		C9E4890F2026BCD60065BE14 /* GoogleOauth2Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E4890E2026BCD60065BE14 /* GoogleOauth2Manager.swift */; };
+		C9E489352026E2830065BE14 /* YoutubeSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E489342026E2830065BE14 /* YoutubeSession.swift */; };
 		E09DDC1B70D6EB7D176E0DD2 /* Pods_sampleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB1C9D8840424AF75E2E052 /* Pods_sampleUITests.framework */; };
 		EB78CB08B8E8C4444A659137 /* Pods_sample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCEA82CB9CE723E74E679243 /* Pods_sample.framework */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		C9E489002026A37A0065BE14 /* sampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleUITests.swift; sourceTree = "<group>"; };
 		C9E489022026A37A0065BE14 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9E4890E2026BCD60065BE14 /* GoogleOauth2Manager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleOauth2Manager.swift; sourceTree = "<group>"; };
+		C9E489342026E2830065BE14 /* YoutubeSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeSession.swift; sourceTree = "<group>"; };
 		D02C1C6384EB9BBF99837F43 /* Pods-sampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sampleTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sampleTests/Pods-sampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E2BA22FA5F5AC140920D607C /* Pods-sampleUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sampleUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-sampleUITests/Pods-sampleUITests.release.xcconfig"; sourceTree = "<group>"; };
 		FCEA82CB9CE723E74E679243 /* Pods_sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +134,7 @@
 				C9E488E02026A37A0065BE14 /* AppDelegate.swift */,
 				C9E488E22026A37A0065BE14 /* ViewController.swift */,
 				C9E4890E2026BCD60065BE14 /* GoogleOauth2Manager.swift */,
+				C9E489342026E2830065BE14 /* YoutubeSession.swift */,
 				C9E488E42026A37A0065BE14 /* Main.storyboard */,
 				C9E488E72026A37A0065BE14 /* Assets.xcassets */,
 				C9E488E92026A37A0065BE14 /* LaunchScreen.storyboard */,
@@ -449,6 +452,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9E489352026E2830065BE14 /* YoutubeSession.swift in Sources */,
 				C9E488E32026A37A0065BE14 /* ViewController.swift in Sources */,
 				C9E488E12026A37A0065BE14 /* AppDelegate.swift in Sources */,
 				C9E4890F2026BCD60065BE14 /* GoogleOauth2Manager.swift in Sources */,
