@@ -9,6 +9,7 @@ target 'sample' do
 
   pod 'GTMAppAuth'
   pod 'GoogleAPIClientForREST'
+  pod 'GoogleAPIClientForREST/YouTube'  
   
   target 'sampleTests' do
     inherit! :search_paths

@@ -25,6 +25,10 @@
 #import "GTLRFramework.h"
 #import "GTLRURITemplate.h"
 #import "GTLRUtilities.h"
+#import "GTLRYouTube.h"
+#import "GTLRYouTubeObjects.h"
+#import "GTLRYouTubeQuery.h"
+#import "GTLRYouTubeService.h"
 
 FOUNDATION_EXPORT double GoogleAPIClientForRESTVersionNumber;
 FOUNDATION_EXPORT const unsigned char GoogleAPIClientForRESTVersionString[];
