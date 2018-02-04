@@ -7,12 +7,16 @@
 //
 
 import UIKit
+import GTMAppAuth
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        GoogleOauth2Manager.shared.auth(controller: self)
+        if let auth = GTMAppAuthFetcherAuthorization(fromKeychainForName: "AuthorizerKey") {
+        } else {
+            GoogleOauth2Manager.shared.auth(controller: self)
+        }
     }
 }
