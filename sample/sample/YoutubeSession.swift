@@ -17,17 +17,6 @@ class YoutubeSession {
         return service
     }()
     
-    func post() {
-        
-        guard let  url = URL(string: "https.youtube.com") else {
-            print("@@ invalid url")
-            return
-        }
-        
-        upload(url)
-    }
-    
-    
     func upload(_ url: URL) {
         
         guard let service = authenticatedService else {
@@ -42,25 +31,32 @@ class YoutubeSession {
         snippet.descriptionProperty = "TestUpload"
         snippet.tags = "test,video,upload".components(separatedBy: ",")
         
-        let youtubeVideo = GTLRYouTube_Video()
-        youtubeVideo.snippet = snippet
-        youtubeVideo.status = status
+        let video = GTLRYouTube_Video()
+        video.snippet = snippet
+        video.status = status
         
-        let params = GTLRUploadParameters(fileURL: url, mimeType: "video/mp4")
         
-        let query = GTLRYouTubeQuery_VideosInsert.query(withObject: youtubeVideo, part: "snippet,status", uploadParameters: params)
+        let fileHandle = try! FileHandle(forReadingFrom: url)
+        
+        let params = GTLRUploadParameters(fileHandle: fileHandle, mimeType: "video/mp4")
+//        let params = GTLRUploadParameters(data: data, mimeType: "video/mp4")
+//        let params = GTLRUploadParameters(fileURL: url, mimeType: "video/mp4")
+        
+        let query = GTLRYouTubeQuery_VideosInsert.query(withObject: video, part: "snippet,status", uploadParameters: params)
         
         query.executionParameters.uploadProgressBlock = {(progressTicket, totalBytesUploaded, totalBytesExpectedToUpload) in
             print("Uploaded", totalBytesUploaded)
         }
         
         
-        service.executeQuery(query, completionHandler: { ticket,b,c in
+        service.executeQuery(query, completionHandler: { ticket,b,error in
             
             
+            print("@チケット")
             print(ticket)
             print(b)
-            print(c)
+            print("@エラー")
+            print(error?.localizedDescription)
             
         })
     }

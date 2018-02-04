@@ -15,6 +15,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         if let auth = GTMAppAuthFetcherAuthorization(fromKeychainForName: "AuthorizerKey") {
+            
+            let session = YoutubeSession()
+            
+            guard let url = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
+                fatalError("nofile")
+            }
+            session.upload(url)
+            
         } else {
             GoogleOauth2Manager.shared.auth(controller: self)
         }
