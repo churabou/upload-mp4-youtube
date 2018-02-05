@@ -1,5 +1,4 @@
 import GoogleAPIClientForREST
-import GTMAppAuth
 
 
 class YoutubeSession {
@@ -8,17 +7,17 @@ class YoutubeSession {
     fileprivate lazy var authenticatedService: GTLRYouTubeService? = {
         
         let service = GTLRYouTubeService()
-        guard let auth = GTMAppAuthFetcherAuthorization(fromKeychainForName: "AuthorizerKey") else {
+        guard let auth = GoogleOauth2Manager.shared.authorization else {
             return nil
         }
         service.shouldFetchNextPages = true
         service.isRetryEnabled = true
         service.authorizer = auth
-        service.apiKey = "APIKey"
         
         return service
     }()
     
+    //https://github.com/google/google-api-objectivec-client-for-rest/blob/master/Examples/YouTubeSample/YouTubeSampleWindowController.m#L434
     func uploadVideo(file: String){
         
         guard let service = authenticatedService else {
