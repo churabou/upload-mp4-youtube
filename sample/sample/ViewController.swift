@@ -17,13 +17,13 @@ class ViewController: UIViewController {
         if let auth = GoogleOauth2Manager.shared.authorization {
             
             GoogleOauth2Manager.testFeach(auth: auth)
-//            let session = YoutubeSession()
-//
-//            guard let url = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
-//                fatalError("nofile")
-//            }
-//            session.upload(url)
+            let session = YoutubeSession()
+
+            guard let file = Bundle.main.path(forResource: "video", ofType: "mp4") else {
+                fatalError("nofile")
+            }
             
+            session.uploadVideo(file: file)
         } else {
             GoogleOauth2Manager.shared.requestAuthorization(controller: self)
         }
