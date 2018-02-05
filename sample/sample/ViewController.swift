@@ -7,24 +7,27 @@
 //
 
 import UIKit
-import GTMAppAuth
+
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let auth = GTMAppAuthFetcherAuthorization(fromKeychainForName: "AuthorizerKey") {
+        if let auth = GoogleOauth2Manager.shared.authorization {
             
-            let session = YoutubeSession()
-            
-            guard let url = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
-                fatalError("nofile")
-            }
-            session.upload(url)
+            GoogleOauth2Manager.testFeach(auth: auth)
+//            let session = YoutubeSession()
+//
+//            guard let url = Bundle.main.url(forResource: "video", withExtension: "mp4") else {
+//                fatalError("nofile")
+//            }
+//            session.upload(url)
             
         } else {
-            GoogleOauth2Manager.shared.auth(controller: self)
+            GoogleOauth2Manager.shared.requestAuthorization(controller: self)
         }
+        
+
     }
 }

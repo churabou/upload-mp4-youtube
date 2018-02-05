@@ -4,10 +4,17 @@ class GoogleOauth2Manager {
     
     static let shared = GoogleOauth2Manager()
     
-    var authorization: GTMAppAuthFetcherAuthorization?
+    var authorization: GTMAppAuthFetcherAuthorization? {
+        
+        if let auth = GTMAppAuthFetcherAuthorization(fromKeychainForName: "AuthorizerKey") {
+            return auth
+        }
+        return nil
+    }
+    
     var currentAuthorizationFlow: OIDAuthorizationFlowSession?
     
-    func auth(controller: UIViewController) {
+    func requestAuthorization(controller: UIViewController) {
         
         let yourKey = ""
         let clientId = "\(yourKey).apps.googleusercontent.com"
@@ -30,18 +37,15 @@ class GoogleOauth2Manager {
                 print("ok")
                 
                 let auth = GTMAppAuthFetcherAuthorization(authState: state)
-                self.authorization = auth
                 GTMAppAuthFetcherAuthorization.save(auth, toKeychainForName: "AuthorizerKey")
-                
-                self.testFeach()
             }
         })
     }
     
-    func testFeach() {
+    static func testFeach(auth: GTMAppAuthFetcherAuthorization) {
         
         let service = GTMSessionFetcherService()
-        service.authorizer = authorization
+        service.authorizer = auth
         
         let endpoint = "https://www.googleapis.com/oauth2/v3/userinfo"
         guard let url = URL(string: endpoint) else {
