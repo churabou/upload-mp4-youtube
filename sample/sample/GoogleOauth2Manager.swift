@@ -1,4 +1,5 @@
 import GTMAppAuth
+import GoogleAPIClientForREST
 
 class GoogleOauth2Manager {
     
@@ -19,12 +20,13 @@ class GoogleOauth2Manager {
         let yourKey = ""
         let clientId = "\(yourKey).apps.googleusercontent.com"
         let redirectURI = URL(string: "com.googleusercontent.apps.\(yourKey):/oauthredirect")!
+        let scopes = [OIDScopeOpenID, OIDScopeProfile, kGTLRAuthScopeYouTube,OIDScopeEmail]
         
         let configuration = GTMAppAuthFetcherAuthorization.configurationForGoogle()
         let request = OIDAuthorizationRequest(configuration: configuration,
                                               clientId: clientId,
                                               clientSecret: nil,
-                                              scopes: [OIDScopeOpenID, OIDScopeProfile],
+                                              scopes: scopes,
                                               redirectURL: redirectURI,
                                               responseType: OIDResponseTypeCode,
                                               
