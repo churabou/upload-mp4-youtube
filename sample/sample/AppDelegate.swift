@@ -21,9 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         
-        if let flow = GoogleOauth2Manager.shared.currentAuthorizationFlow {
-            GoogleOauth2Manager.shared.currentAuthorizationFlow = nil
-            
+        if let flow = YoutubeSession.shared.currentAuthorizationFlow {
+            YoutubeSession.shared.currentAuthorizationFlow = nil
             return true
         }
         

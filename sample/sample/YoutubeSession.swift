@@ -1,13 +1,55 @@
+import GTMAppAuth
 import GoogleAPIClientForREST
 
 
 class YoutubeSession {
     
+    static let shared = YoutubeSession()
+    
+    var authorization: GTMAppAuthFetcherAuthorization? {
+        if let auth = GTMAppAuthFetcherAuthorization(fromKeychainForName: "AuthorizerKey") {
+            return auth
+        }
+        return nil
+    }
+    
+    internal var currentAuthorizationFlow: OIDAuthorizationFlowSession?
+    
+    internal func requestAuthorization(controller: UIViewController, completion: @escaping () -> ()) {
+        
+        let yourKey = ""
+        let clientId = "\(yourKey).apps.googleusercontent.com"
+        let redirectURI = URL(string: "com.googleusercontent.apps.\(yourKey):/oauthredirect")!
+        let scopes = [kGTLRAuthScopeYouTube, OIDScopeEmail]
+        
+        let configuration = GTMAppAuthFetcherAuthorization.configurationForGoogle()
+        let request = OIDAuthorizationRequest(configuration: configuration,
+                                              clientId: clientId,
+                                              clientSecret: nil,
+                                              scopes: scopes,
+                                              redirectURL: redirectURI,
+                                              responseType: OIDResponseTypeCode,
+                                              
+
+                                              additionalParameters: nil)
+        
+        
+        currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: controller, callback: { authState, error in
+            
+            if let state = authState {
+                
+                let auth = GTMAppAuthFetcherAuthorization(authState: state)
+                GTMAppAuthFetcherAuthorization.save(auth, toKeychainForName: "AuthorizerKey")
+                completion()
+            }
+        })
+    }
+    
     
     fileprivate lazy var authenticatedService: GTLRYouTubeService? = {
         
         let service = GTLRYouTubeService()
-        guard let auth = GoogleOauth2Manager.shared.authorization else {
+        guard let auth = authorization else {
             return nil
         }
         service.shouldFetchNextPages = true
@@ -18,7 +60,7 @@ class YoutubeSession {
     }()
     
     //https://github.com/google/google-api-objectivec-client-for-rest/blob/master/Examples/YouTubeSample/YouTubeSampleWindowController.m#L434
-    func uploadVideo(file: String){
+    internal func uploadVideo(file: String, completion: @escaping () -> ()){
         
         guard let service = authenticatedService else {
             return
@@ -29,7 +71,7 @@ class YoutubeSession {
         
         let snippet = GTLRYouTube_VideoSnippet()
         snippet.title = "upload title"
-        snippet.descriptionProperty = "test upload"
+        snippet.descriptionProperty = "test upload 3"
         snippet.tags = "test,video,upload".components(separatedBy: ",")
         
         let video = GTLRYouTube_Video()
@@ -48,18 +90,21 @@ class YoutubeSession {
         let query = GTLRYouTubeQuery_VideosInsert.query(withObject: video, part: "snippet,status", uploadParameters: params)
 
         query.executionParameters.uploadProgressBlock = {(progressTicket, totalBytesUploaded, totalBytesExpectedToUpload) in
-            print("Uploaded", totalBytesUploaded)
+            print("Uploaded \(totalBytesUploaded)/\(totalBytesExpectedToUpload)")
         }
         
         
         service.executeQuery(query, completionHandler: { ticket, video, error in
             
-            
             print("@チケット")
             print(ticket)
-            print(video)
-            print("@エラー")
-            print(error?.localizedDescription)
+            print("@video: \(video)")
+            print("@エラー: \(error?.localizedDescription)")
+            completion()
         })
+    }
+    
+    func deleateAuthFromKeyChain() {
+        GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: "AuthorizerKey")
     }
 }

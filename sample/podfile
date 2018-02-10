@@ -8,9 +8,9 @@ target 'sample' do
   # Pods for sample
 
   pod 'GTMAppAuth'
-  pod 'GoogleAPIClientForREST'
   pod 'GoogleAPIClientForREST/YouTube'  
-  
+  pod 'SnapKit' 
+  pod 'SVProgressHUD'
   target 'sampleTests' do
     inherit! :search_paths
     # Pods for testing
