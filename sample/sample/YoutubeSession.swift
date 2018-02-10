@@ -95,12 +95,16 @@ class YoutubeSession {
         
         
         service.executeQuery(query, completionHandler: { ticket, video, error in
-            
-            print("@チケット")
-            print(ticket)
-            print("@video: \(video)")
-            print("@エラー: \(error?.localizedDescription)")
-            completion()
+
+            if error != nil {
+                print(error?.localizedDescription)
+            } else {
+                
+                if let video = video as? GTLRObject  {
+                       print("video: \(video.json)")
+                }
+                completion()
+            }
         })
     }
     

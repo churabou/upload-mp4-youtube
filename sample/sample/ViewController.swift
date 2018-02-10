@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     
     @objc fileprivate func actionUpload() {
         
-        guard let file = Bundle.main.path(forResource: "video2", ofType: "mp4") else {
+        guard let file = Bundle.main.path(forResource: "video", ofType: "mp4") else {
             fatalError("nofile")
         }
         
